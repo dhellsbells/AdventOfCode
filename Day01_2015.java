@@ -8,6 +8,7 @@ public class Day01_2015
     {
         File file = new File("Day01_2015.txt");
         Scanner scnr = new Scanner(file);
+
         int floor = 0;
         int position = 0;
         boolean setFinal = false;
@@ -33,6 +34,7 @@ public class Day01_2015
         }
 
         scnr.close();
+        
         System.out.println("The floor is: " + floor);
         System.out.print("The position of the first character that enters the basement is: " + finalPosition);
     }

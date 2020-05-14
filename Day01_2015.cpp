@@ -25,6 +25,7 @@ int main()
     }
 
     file.close();
+    
     std::cout << "The floor is: " << floor << "\n";
     std::cout << "The position of the first character that enters the basement is: " << finalPosition;
 

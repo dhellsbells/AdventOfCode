@@ -17,5 +17,6 @@ with open("Day01_2015.txt") as file:
                 setFinal = True
 
 file.close()
+
 print("The floor is: " + str(floor))
 print("The position of the first character that enters the basement is: " + str(finalPosition))
