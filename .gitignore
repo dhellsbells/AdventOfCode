@@ -1,0 +1,4 @@
+# dev / debug folders
+/.idea
+/venv
+/.vscode

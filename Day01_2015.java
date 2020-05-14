@@ -29,7 +29,6 @@ public class Day01_2015
                     finalPosition = position;
                     setFinal = true;
                 }
-
             }
         }
 
