@@ -1,18 +1,19 @@
 /*
-*   I'm aware that there are libraries available that will perform MD5
-*   calculations. I wrote my own code for the MD5 algorithm to learn.
+*   Shell tests MD5 algorithm. Still need to complete code for Day 4
 */
 
 #include <iostream>
 #include <string>
-#include <stdint.h>
-#include <cmath>
 #include "MD5.h"
 
 int main()
 {
-    std::string secretKey = "ckczppom117946";
+    std::string secretKey = "ckczppom3938038";
     int keyFollower = 1;
 
-    MD5{secretKey};
+    std::string MD5Hash = MD5(secretKey);
+
+    std::cout << "MD5 Hash for " << secretKey << " is: " << MD5Hash << "\n";
+
+    return 0;
 }

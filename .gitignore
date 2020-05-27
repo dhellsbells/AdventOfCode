@@ -1,7 +1,8 @@
 # dev / debug folders
-/.idea
-/venv
-/.vscode
+.idea/
+venv/
+.vscode/
+.vs/
 
 # executables
 *.exe
