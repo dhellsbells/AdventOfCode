@@ -33,9 +33,9 @@ std::string MD5(std::string &input)
     MD5Init(a0, b0, c0, d0, s, K);
     uint32_t* M = MD5Pad(input);
 
-    for (int i = 0; i < 16; i++)
+    /*for (int i = 0; i < 16; i++)
         std::cout << std::hex << M[i] << " ";
-    std::cout << "\n";
+    std::cout << "\n";*/
 
     std::string result = MD5Main(a0, b0, c0, d0, s, K, M, input.length());
     
