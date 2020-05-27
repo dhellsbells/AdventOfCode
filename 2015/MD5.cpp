@@ -17,6 +17,7 @@
 
 #include "MD5.h"
 
+// Main MD5 function. Returns 32-character string of MD5 hash.
 std::string MD5(std::string &input)
 {
     if (input.length() > UINT32_MAX)
@@ -33,10 +34,6 @@ std::string MD5(std::string &input)
     MD5Init(a0, b0, c0, d0, s, K);
     uint32_t* M = MD5Pad(input);
 
-    /*for (int i = 0; i < 16; i++)
-        std::cout << std::hex << M[i] << " ";
-    std::cout << "\n";*/
-
     std::string result = MD5Main(a0, b0, c0, d0, s, K, M, input.length());
     
     if (M != nullptr)
@@ -49,6 +46,7 @@ std::string MD5(std::string &input)
     return result;
 }
 
+// Function for initializing important variables
 void MD5Init(uint32_t &a0, uint32_t &b0, uint32_t &c0, uint32_t &d0, uint32_t* s, uint32_t* K)
 {
     a0 = 0x67452301;
@@ -60,6 +58,8 @@ void MD5Init(uint32_t &a0, uint32_t &b0, uint32_t &c0, uint32_t &d0, uint32_t* s
     KInit(K);
 }
 
+// s is a canonical MD5 integer used for left-rotating 32-bit values.
+// Functions used are non-canonical but give the appropriate values.
 void sInit(uint32_t* s)
 {
     for (int i = 0; i < 4; i++)
@@ -83,6 +83,7 @@ void sInit(uint32_t* s)
     }
 }
 
+// K is a canonical MD5 value created using the function in KInit
 void KInit(uint32_t* K)
 {
     for (int i = 0; i < 64; i++)
@@ -161,6 +162,7 @@ std::string MD5Main(uint32_t &a0, uint32_t &b0, uint32_t &c0, uint32_t &d0, uint
         uint32_t C = c0;
         uint32_t D = d0;
 
+        // Inner loop. 4 rounds (F, G, H, I) of 16 manipulations.
         for (int j = 0; j < 64; j++)
         {
             uint32_t f;
@@ -187,8 +189,6 @@ std::string MD5Main(uint32_t &a0, uint32_t &b0, uint32_t &c0, uint32_t &d0, uint
                 g = ((j * 7) % 16);
             }
 
-            // std::cout << std::dec << j << ".  g = " << g << "\ts = " <<  s[j] << "\tK = " << std::hex << K[j] << "\n";
-
             f = f + A + K[j] + M[g];
             A = D;
             D = C;
@@ -196,12 +196,15 @@ std::string MD5Main(uint32_t &a0, uint32_t &b0, uint32_t &c0, uint32_t &d0, uint
             B = B + RotateLeft(f, s[j]);
         }
 
+        // Add result of inner loop to any previous result
         a0 += A;
         b0 += B;
         c0 += C;
         d0 += D;
     }
 
+    // Output string. Reverses byte order of each 32-bit word (a0, b0, c0, d0) and
+    // pads with any missing leading 0's
     std::ostringstream md5String;
     md5String << std::hex << std::setfill('0') << std::setw(8) << ReverseBytes(a0);
     md5String << std::hex << std::setfill('0') << std::setw(8) << ReverseBytes(b0);
@@ -211,11 +214,14 @@ std::string MD5Main(uint32_t &a0, uint32_t &b0, uint32_t &c0, uint32_t &d0, uint
     return md5String.str();
 }
 
+// Implements a left rotation (wrapping shift) of
+// a 32-bit number 'x' by a number of bits 'n'
 uint32_t RotateLeft(uint32_t x, uint32_t n)
 {
     return ((x << n) | (x >> (32 - n)));
 }
 
+// Reverses the byte order of a 32-bit number
 uint32_t ReverseBytes(uint32_t num)
 {
     uint32_t b0, b1, b2, b3;
@@ -228,6 +234,7 @@ uint32_t ReverseBytes(uint32_t num)
     return (b0 | b1 | b2 | b3);
 }
 
+// F, G, H, I are canonical MD5 functions
 uint32_t F(uint32_t x, uint32_t y, uint32_t z)
 {
     return ((x & y) | (~x & z));
