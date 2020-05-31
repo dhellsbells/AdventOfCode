@@ -9,18 +9,18 @@ grid2 = [[0 for y in range(1000)] for x in range(1000)]
 
 with open("Day06_2015.txt") as file:
     for line in file:
-        llist = line.split()
+        xList = line.split()
         
-        xy = list(map(int, llist[-3].split(',')))
-        xy2 = list(map(int, llist[-1].split(',')))
+        xy = list(map(int, xList[-3].split(',')))
+        xy2 = list(map(int, xList[-1].split(',')))
         
-        if len(llist) == 5:
-            if llist[1] == 'on':
+        if len(xList) == 5:
+            if xList[1] == 'on':
                 for x in range(xy[0], (xy2[0]+1)):
                     for y in range(xy[1], (xy2[1]+1)):
                         grid[x][y] = 1
                         grid2[x][y] += 1
-            elif llist[1] == 'off':
+            elif xList[1] == 'off':
                 for x in range(xy[0], (xy2[0]+1)):
                     for y in range(xy[1], (xy2[1]+1)):
                         grid[x][y] = 0
@@ -29,7 +29,7 @@ with open("Day06_2015.txt") as file:
             else:
                 print('Error: 5list[1] returned incorrect string')
                 quit()
-        elif len(llist) == 4:
+        elif len(xList) == 4:
             for x in range(xy[0], (xy2[0]+1)):
                     for y in range(xy[1], (xy2[1]+1)):
                         if grid[x][y] == 0:
